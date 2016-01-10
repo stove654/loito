@@ -27,6 +27,7 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'admin';
+  console.log(newUser)
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secret, { expiresInMinutes: 60*5 });
