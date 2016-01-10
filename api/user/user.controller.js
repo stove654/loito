@@ -14,16 +14,21 @@ var validationError = function(res, err) {
  * restriction: 'admin'
  */
 exports.index = function(req, res) {
-  User.find({}, '-salt -hashedPassword', function (err, users) {
+  User.find(function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
   });
+  /*User.find({}, '-salt -hashedPassword', function (err, users) {
+    if(err) return res.send(500, err);
+    res.json(200, users);
+  });*/
 };
 
 /**
  * Creates a new user
  */
 exports.create = function (req, res, next) {
+  console.log(re)
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'admin';
